@@ -1,13 +1,26 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://scenes/mage.tscn" type="PackedScene" id=1]
-[ext_resource path="res://scenes/demon.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scripts/main.gd" type="Script" id=2]
+
+[sub_resource type="Curve2D" id=1]
+bake_interval = 10.0
+_data = {
+"points": PoolVector2Array( 131.54, -73.3122, -131.54, 73.3122, -56, -50, -185.461, -105.576, 185.461, 105.576, -32, 1086, -163.502, 133.342, 163.502, -133.342, 1944, 1110, 298.431, 188.901, -298.431, -188.901, 1984, -66, 131.875, -141.897, -131.875, 141.897, -56, -50 )
+}
 
 [node name="Main" type="Node2D"]
 position = Vector2( 0, 2 )
-
-[node name="Demon" parent="." instance=ExtResource( 2 )]
-position = Vector2( 600.484, 563.387 )
+script = ExtResource( 2 )
 
 [node name="Mage" parent="." instance=ExtResource( 1 )]
 position = Vector2( 960, 540 )
+
+[node name="SpawnTimer" type="Timer" parent="."]
+
+[node name="SpawnPath" type="Path2D" parent="."]
+curve = SubResource( 1 )
+
+[node name="Demons" type="Node" parent="."]
+
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_SpawnTimer_timeout"]

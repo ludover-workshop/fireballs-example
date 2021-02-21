@@ -8,6 +8,28 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "KinematicBody2D",
+"class": "Demon",
+"language": "GDScript",
+"path": "res://scripts/demon.gd"
+}, {
+"base": "Node2D",
+"class": "Fireball",
+"language": "GDScript",
+"path": "res://scripts/fireball.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "Mage",
+"language": "GDScript",
+"path": "res://scripts/mage.gd"
+} ]
+_global_script_class_icons={
+"Demon": "",
+"Fireball": "",
+"Mage": ""
+}
+
 [application]
 
 config/name="Fireballs"

@@ -1,13 +1,13 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://assets/demon.png" type="Texture" id=1]
+[ext_resource path="res://scripts/demon.gd" type="Script" id=2]
 
-[sub_resource type="CapsuleShape2D" id=2]
+[sub_resource type="CapsuleShape2D" id=1]
 radius = 108.903
 height = 144.638
 
-[sub_resource type="Animation" id=1]
-resource_name = "walk"
+[sub_resource type="Animation" id=2]
 length = 0.6
 loop = true
 tracks/0/type = "value"
@@ -31,10 +31,11 @@ height = 0.0
 scale = Vector2( 0.5, 0.5 )
 collision_layer = 2
 collision_mask = 3
+script = ExtResource( 2 )
 
-[node name="Hurtbox" type="CollisionShape2D" parent="."]
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
 rotation = 1.5708
-shape = SubResource( 2 )
+shape = SubResource( 1 )
 
 [node name="demonSprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
@@ -42,7 +43,7 @@ flip_v = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "walk"
-anims/walk = SubResource( 1 )
+anims/walk = SubResource( 2 )
 
 [node name="Hitbox" type="Area2D" parent="."]
 
