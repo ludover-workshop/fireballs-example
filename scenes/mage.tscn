@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://assets/mage.png" type="Texture" id=1]
 [ext_resource path="res://scripts/mage.gd" type="Script" id=2]
+[ext_resource path="res://scripts/target_velocity_behaviour.gd" type="Script" id=3]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 35.8104
@@ -21,3 +22,9 @@ shape = SubResource( 1 )
 [node name="FireballSpawnPoint" type="Node2D" parent="."]
 position = Vector2( 71.25, 0 )
 scale = Vector2( 0.5, 0.5 )
+
+[node name="TargetVelocityBehaviour" type="Node" parent="."]
+script = ExtResource( 3 )
+max_speed = 600.0
+acceleration = 1700.0
+friction = 1700.0

@@ -4,12 +4,12 @@ extends KinematicBody2D
 const fireball_scene = preload("res://scenes/fireball.tscn")
 onready var fireball_spawn_point = $FireballSpawnPoint
 
-export(float) var speed = 400
-
 const FIRE_COOLDOWN = 0.2
 var remaining_fire_cooldown = 0
 
 var kill_count = 0
+
+onready var targetVelocityBehaviour = $TargetVelocityBehaviour
 
 func _physics_process(delta):
 	move_using_keyboard(delta)
@@ -32,15 +32,17 @@ func move_using_keyboard(delta):
 	var input_vector = Vector2(0, 0)
 	
 	if Input.is_action_pressed("ui_left"):
-		input_vector.x = -speed
+		input_vector.x = -1
 	if Input.is_action_pressed("ui_right"):
-		input_vector.x = speed
+		input_vector.x = 1
 	if Input.is_action_pressed("ui_up"):
-		input_vector.y = -speed
+		input_vector.y = -1
 	if Input.is_action_pressed("ui_down"):
-		input_vector.y = speed
-		
-	move_and_slide(input_vector, Vector2(0, 0))
+		input_vector.y = 1
+	
+	input_vector = input_vector.normalized()
+	
+	targetVelocityBehaviour.target_direction = input_vector
 	
 func killed(body):
 	kill_count += 1

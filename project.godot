@@ -23,11 +23,17 @@ _global_script_classes=[ {
 "class": "Mage",
 "language": "GDScript",
 "path": "res://scripts/mage.gd"
+}, {
+"base": "Node",
+"class": "TargetVelocityBehaviour",
+"language": "GDScript",
+"path": "res://scripts/target_velocity_behaviour.gd"
 } ]
 _global_script_class_icons={
 "Demon": "",
 "Fireball": "",
-"Mage": ""
+"Mage": "",
+"TargetVelocityBehaviour": ""
 }
 
 [application]

@@ -2,7 +2,7 @@ extends Node2D
 
 const demon_scene = preload("res://scenes/demon.tscn")
 
-export(int) var max_demons = 1
+export(int) var max_demons = 10
 
 onready var mage = $Mage
 onready var spawn_curve = $SpawnPath.get_curve()

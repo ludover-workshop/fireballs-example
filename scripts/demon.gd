@@ -2,12 +2,12 @@ class_name Demon
 extends KinematicBody2D
 
 export(float) var health = 100
-
-export(float) var speed = 200
-
-export(float) var rotation_speed = PI * 0.8
+export(float) var rotation_speed = PI * 0.4
 
 var target: Node2D
+
+onready var targetVelocityBehaviour = $TargetVelocityBehaviour
+onready var animationPlayer = $AnimationPlayer
 	
 func init(target, global_position):
 	self.target = target
@@ -18,6 +18,7 @@ func angle_to_target():
 	return (target.position - self.position).angle()
 
 func receive_damage_from(damager):
+	targetVelocityBehaviour.knockback_from(damager.position)
 	health -= damager.damage
 	if health <= 0:
 		be_killed_by(damager)
@@ -39,4 +40,6 @@ func _process(delta):
 	rotate(sign(to_target) * min(abs(to_target), max_rotation))
 	
 	var front = Vector2.RIGHT.rotated(rotation)
-	move_and_slide(front * speed, Vector2.ZERO)
+	
+	targetVelocityBehaviour.target_direction = front
+	animationPlayer.playback_speed = targetVelocityBehaviour.velocity.length() / targetVelocityBehaviour.max_speed
