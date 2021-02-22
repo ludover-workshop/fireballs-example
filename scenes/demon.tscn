@@ -28,7 +28,7 @@ tracks/0/keys = {
 radius = 145.586
 height = 0.0
 
-[node name="KinematicBody2D" type="KinematicBody2D"]
+[node name="Demon" type="KinematicBody2D"]
 position = Vector2( 45.4597, 0 )
 scale = Vector2( 0.5, 0.5 )
 collision_layer = 2

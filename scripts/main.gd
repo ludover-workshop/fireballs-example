@@ -11,6 +11,7 @@ onready var demons = $Demons
 
 
 func _ready():
+	randomize()
 	$SpawnTimer.start()
 
 func _on_SpawnTimer_timeout():

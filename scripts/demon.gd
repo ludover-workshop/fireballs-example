@@ -18,7 +18,7 @@ func angle_to_target():
 	return (target.position - self.position).angle()
 
 func receive_damage_from(damager):
-	targetVelocityBehaviour.knockback_from(damager.position)
+	targetVelocityBehaviour.knockback_from(damager.position, damager.knockback_strength)
 	health -= damager.damage
 	if health <= 0:
 		be_killed_by(damager)
@@ -28,7 +28,6 @@ func be_killed_by(damager):
 	queue_free()
 	
 func _process(delta):
-	var max_rotation = rotation_speed * delta
 	var target_angle = angle_to_target()
 	
 	# We normalize the angle in the case where the count goes from PI to -PI
@@ -36,8 +35,11 @@ func _process(delta):
 		target_angle = target_angle + TAU * sign(rotation)
 	
 	var to_target = target_angle - rotation
+	
+	var max_rotation = rotation_speed * delta if abs(to_target) < PI / 4 else rotation_speed * delta * 4
 
 	rotate(sign(to_target) * min(abs(to_target), max_rotation))
+	
 	
 	var front = Vector2.RIGHT.rotated(rotation)
 	

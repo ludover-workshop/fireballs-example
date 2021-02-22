@@ -6,6 +6,7 @@ export(float) var speed = 1000
 export(float) var timeToLive = 1
 
 export(float) var damage = 12.5
+export(float) var knockback_strength = 100
 
 var owner_mage
 

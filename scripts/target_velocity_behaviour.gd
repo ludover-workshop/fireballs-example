@@ -28,4 +28,5 @@ func _physics_process(delta):
 
 func knockback_from(other_position, strength = 100):
 	var knocbkack_direction = (parent.position - other_position).normalized()
-	velocity += knocbkack_direction * strength
+	velocity = (velocity + knocbkack_direction * strength).clamped(max_speed)
+	
