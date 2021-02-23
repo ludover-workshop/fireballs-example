@@ -24,4 +24,6 @@ curve = SubResource( 1 )
 
 [node name="Demons" type="Node" parent="."]
 
+[node name="Fireballs" type="Node" parent="."]
+
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_SpawnTimer_timeout"]
