@@ -4,8 +4,6 @@ extends KinematicBody2D
 const fireball_scene = preload("res://scenes/fireball.tscn")
 onready var fireball_spawn_point = $FireballSpawnPoint
 
-export(float) var health = 100
-
 export(float) var fire_cooldown = 0.2
 var remaining_fire_cooldown = 0
 
@@ -51,26 +49,12 @@ func move_using_keyboard(delta):
 	input_vector = input_vector.normalized()
 	
 	targetVelocityBehaviour.target_direction = input_vector
-
-#TODO: Extract this behaviour to a superclass or other node	
-func receive_damage_from(damager):
-	targetVelocityBehaviour.knockback_from(damager.position, damager.knockback_strength)
-	health -= damager.damage
-	print(health)
-	if health <= 0:
-		be_killed_by(damager)
-	start_blinking()
-	
-func be_killed_by(damager):
-	queue_free()	
-	
-func start_blinking():
-	$BlinkingTimer.start()
-	mage_sprite.material.set_shader_param('blink_intensity', 1)
-	
-func _on_BlinkingTimer_timeout():
-	mage_sprite.material.set_shader_param('blink_intensity', 0)
 	
 func killed(body):
 	kill_count += 1
 	print("Kill count: " + str(kill_count))
+
+onready var damageable = $Damageable
+
+func receive_damage_from(damager):
+	damageable.receive_damage_from(damager)

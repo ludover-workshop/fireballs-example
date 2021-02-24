@@ -22,4 +22,9 @@ func _on_SpawnTimer_timeout():
 		var demon: Demon = demon_scene.instance()
 		
 		demon.init(mage, position)
+		demon.get_node("Damageable").connect('killed', self, 'killed', [demon])
 		demons.add_child(demon)
+
+func killed(damager, demon):
+	if damager.get("owner_mage") == mage:
+		mage.killed(demon)

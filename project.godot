@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Node",
+"class": "Damageable",
+"language": "GDScript",
+"path": "res://scripts/damageable.gd"
+}, {
 "base": "KinematicBody2D",
 "class": "Demon",
 "language": "GDScript",
@@ -30,6 +35,7 @@ _global_script_classes=[ {
 "path": "res://scripts/target_velocity_behaviour.gd"
 } ]
 _global_script_class_icons={
+"Damageable": "",
 "Demon": "",
 "Fireball": "",
 "Mage": "",

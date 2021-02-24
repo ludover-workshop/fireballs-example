@@ -7,7 +7,7 @@ export(float) var rotation_speed = PI * 0.4
 export(float) var damage = 10
 export(float) var knockback_strength = 1500
 
-export(float) var attack_cooldown = 1
+export(float) var attack_cooldown = 0.7
 var remaining_attack_cooldown = 0
 
 var target: Node2D
@@ -26,27 +26,16 @@ func init(target, global_position):
 func angle_to_target():
 	return (target.position - self.position).angle() if is_instance_valid(target) else rand_range(0, TAU)
 
+onready var damageable = $Damageable
+
 func receive_damage_from(damager):
-	targetVelocityBehaviour.knockback_from(damager.position, damager.knockback_strength)
-	health -= damager.damage
-	if health <= 0:
-		be_killed_by(damager)
-	start_blinking()
-
-func start_blinking():
-	blinkingTimer.start()
-	demonSprite.material.set_shader_param('blink_intensity', 1)
-
-func _on_BlinkingTimer_timeout():
-	demonSprite.material.set_shader_param('blink_intensity', 0)
-		
-func be_killed_by(damager):
-	damager.killed(self)
-	queue_free()
+	damageable.receive_damage_from(damager)
 	
 func _process(delta):
 	if is_instance_valid(target):
 		turn_towards_target(delta)
+	
+	animationPlayer.playback_speed = targetVelocityBehaviour.velocity.length() / targetVelocityBehaviour.max_speed
 	
 	if attacking && remaining_attack_cooldown <= 0:
 		attack_all(attack_area.get_overlapping_bodies())
@@ -67,12 +56,10 @@ func turn_towards_target(delta):
 
 	rotate(sign(to_target) * min(abs(to_target), max_rotation))
 	
-	
 	var front = Vector2.RIGHT.rotated(rotation)
 	
 	targetVelocityBehaviour.target_direction = front
-	animationPlayer.playback_speed = targetVelocityBehaviour.velocity.length() / targetVelocityBehaviour.max_speed
-
+	
 
 func attack_all(bodies):
 	for body in bodies:
