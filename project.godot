@@ -8,6 +8,16 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Node2D",
+"class": "TargetVelocityBehaviour",
+"language": "GDScript",
+"path": "res://Behaviours/TargetVelocityBehaviour.gd"
+} ]
+_global_script_class_icons={
+"TargetVelocityBehaviour": ""
+}
+
 [application]
 
 config/name="Fireballs"
