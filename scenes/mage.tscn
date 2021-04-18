@@ -17,13 +17,13 @@ script = ExtResource( 2 )
 
 [node name="mage" type="Sprite" parent="."]
 material = ExtResource( 4 )
-position = Vector2( 0, -1 )
-scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 1 )
+hframes = 3
 
 [node name="mage_shadow" type="Sprite" parent="mage"]
 show_behind_parent = true
-position = Vector2( 5, 0 )
+position = Vector2( 5, -2 )
+scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 5 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

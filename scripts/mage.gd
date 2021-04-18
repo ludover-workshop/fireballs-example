@@ -33,6 +33,16 @@ func check_fireball_trigger(delta):
 	
 func update_target(delta):
 	rotation = get_viewport().get_mouse_position().angle_to_point(position)
+	if rotation > -0.8 * PI && rotation < 0.2 * -PI:
+		mage_sprite.set_frame(2)
+	elif rotation > 0.2 * PI && rotation < 0.8 * PI:
+		mage_sprite.set_frame(0)
+	elif rotation >= -0.2 * PI && rotation <= 0.2 * PI:
+		mage_sprite.set_frame(1)
+		mage_sprite.flip_v = false		
+	else:
+		mage_sprite.set_frame(1)
+		mage_sprite.flip_v = true
 	
 func move_using_keyboard(delta):
 	var input_vector = Vector2(0, 0)
