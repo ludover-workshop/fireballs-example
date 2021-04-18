@@ -34,6 +34,10 @@ func receive_damage_from(damager):
 func _process(delta):
 	if is_instance_valid(target):
 		turn_towards_target(delta)
+		
+	var front = Vector2.RIGHT.rotated(rotation)
+	
+	targetVelocityBehaviour.target_direction = front
 	
 	animationPlayer.playback_speed = targetVelocityBehaviour.velocity.length() / targetVelocityBehaviour.max_speed
 	
@@ -55,10 +59,6 @@ func turn_towards_target(delta):
 	var max_rotation = rotation_speed * delta if abs(to_target) < PI / 4 else rotation_speed * delta * 4
 
 	rotate(sign(to_target) * min(abs(to_target), max_rotation))
-	
-	var front = Vector2.RIGHT.rotated(rotation)
-	
-	targetVelocityBehaviour.target_direction = front
 	
 
 func attack_all(bodies):
