@@ -1,11 +1,14 @@
 class_name Mage
 extends KinematicBody2D
 
-const fireball_scene = preload("res://scenes/fireball.tscn")
+const fireball_scene := preload("res://scenes/fireball.tscn")
+const meteor_scene := preload("res://scenes/meteor.tscn")
 onready var fireball_spawn_point = $FireballSpawnPoint
 
 export(float) var fire_cooldown = 0.2
+export(float) var meteor_cooldown = 3
 var remaining_fire_cooldown = 0
+var remaining_meteor_cooldown = 0
 
 var kill_count = 0
 
@@ -19,17 +22,29 @@ func get_fireballs_parent():
 
 func _physics_process(delta):
 	move_using_keyboard(delta)
+
+func _process(delta):
 	update_target(delta)
 	check_fireball_trigger(delta)
+	check_meteor_trigger(delta)
+
+func check_projectile_trigger(delta, action: String, remainingCooldownRef: String, cooldown: float, instancer: PackedScene):
+	var currentCooldown = get(remainingCooldownRef)
+	if Input.is_action_pressed(action) && currentCooldown <= 0:
+		var projectile = instancer.instance()
+		projectile.init(self, fireball_spawn_point.global_position, self.rotation)
+		fireballs_parent.add_child(projectile)
+		
+		set(remainingCooldownRef, cooldown)
+	else: 
+		set(remainingCooldownRef, max(currentCooldown - delta, 0))
+
+func check_meteor_trigger(delta):
+	check_projectile_trigger(delta, "ui_fire_meteor", "remaining_meteor_cooldown", meteor_cooldown, meteor_scene)
+		
 	
 func check_fireball_trigger(delta):
-	if Input.is_action_pressed("ui_fire") && remaining_fire_cooldown <= 0:
-		var fireball = fireball_scene.instance()
-		fireball.init(self, fireball_spawn_point.global_position, self.rotation)
-		fireballs_parent.add_child(fireball)
-		remaining_fire_cooldown = fire_cooldown
-		
-	remaining_fire_cooldown = max(remaining_fire_cooldown - delta, 0)
+	check_projectile_trigger(delta, "ui_fire", "remaining_fire_cooldown", fire_cooldown, fireball_scene)
 	
 func update_target(delta):
 	rotation = get_viewport().get_mouse_position().angle_to_point(position)

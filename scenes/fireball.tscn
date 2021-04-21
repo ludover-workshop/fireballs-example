@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://assets/fireball_00.png" type="Texture" id=1]
 [ext_resource path="res://assets/fireball_02.png" type="Texture" id=2]
@@ -11,31 +11,33 @@
 [ext_resource path="res://assets/fireball_08.png" type="Texture" id=9]
 [ext_resource path="res://assets/fireball_07.png" type="Texture" id=10]
 [ext_resource path="res://scripts/fireball.gd" type="Script" id=11]
+[ext_resource path="res://scenes/projectile.tscn" type="PackedScene" id=12]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 7 ), ExtResource( 2 ), ExtResource( 6 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 3 ), ExtResource( 10 ), ExtResource( 9 ), ExtResource( 8 ), ExtResource( 1 ) ],
+"frames": [ ExtResource( 1 ), ExtResource( 7 ), ExtResource( 2 ), ExtResource( 6 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 3 ), ExtResource( 10 ), ExtResource( 9 ), ExtResource( 8 ) ],
 "loop": true,
 "name": "default",
 "speed": 10.0
 } ]
 
 [sub_resource type="CircleShape2D" id=2]
-radius = 40.0125
+radius = 39.5285
 
 [node name="Fireball" type="Node2D"]
+position = Vector2( 0.5, 0 )
 script = ExtResource( 11 )
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+[node name="Projectile" parent="." instance=ExtResource( 12 )]
+
+[node name="AnimatedSprite" parent="Projectile" index="0"]
 frames = SubResource( 1 )
-frame = 4
-playing = true
+frame = 1
 
-[node name="Area2D" type="Area2D" parent="."]
-collision_layer = 4
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" parent="Projectile/Area2D" index="0"]
+position = Vector2( -0.5, 1 )
 shape = SubResource( 2 )
 
-[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
+[connection signal="hit" from="Projectile" to="." method="_on_Projectile_hit"]
+
+[editable path="Projectile"]
