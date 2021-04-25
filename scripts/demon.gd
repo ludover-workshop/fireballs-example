@@ -17,9 +17,10 @@ onready var targetVelocityBehaviour = $TargetVelocityBehaviour
 onready var animationPlayer = $AnimationPlayer
 onready var demonSprite = $demonSprite
 onready var blinkingTimer = $BlinkingTimer
+onready var hurtAnimationPlayer = $HurtAnimationPlayer
 	
-func init(target, global_position):
-	self.target = target
+func init(_target, global_position):
+	self.target = _target
 	self.global_position = global_position
 	self.rotation = angle_to_target()
 	
@@ -30,6 +31,7 @@ onready var damageable = $Damageable
 
 func receive_damage_from(damager):
 	damageable.receive_damage_from(damager)
+	hurtAnimationPlayer.play("Hurt")
 	
 func _process(delta):
 	if is_instance_valid(target):
@@ -66,11 +68,11 @@ func attack_all(bodies):
 		if body.has_method("receive_damage_from"):
 			body.receive_damage_from(self)
 
-func _on_AttackArea_body_entered(body):
+func _on_AttackArea_body_entered(_body):
 	attacking = true
 
 onready var attack_area = $AttackArea
 
-func _on_AttackArea_body_exited(body):
+func _on_AttackArea_body_exited(_body):
 	if attack_area.get_overlapping_bodies().empty():
 		attacking = false 
