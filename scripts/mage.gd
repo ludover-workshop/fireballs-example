@@ -73,3 +73,4 @@ onready var damageable = $Damageable
 
 func receive_damage_from(damager):
 	damageable.receive_damage_from(damager)
+	CameraShaker.shake_camera(get_tree(), 15, 0.5)

@@ -5,7 +5,7 @@ export(float) var health = 100
 export(float) var rotation_speed = PI * 0.4
 
 export(float) var damage = 10
-export(float) var knockback_strength = 1500
+export(float) var knockback_strength = 700
 
 export(float) var attack_cooldown = 0.7
 var remaining_attack_cooldown = 0

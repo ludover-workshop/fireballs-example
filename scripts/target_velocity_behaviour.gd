@@ -5,6 +5,8 @@ export(float) var max_speed = 400
 export(float) var acceleration = 2000
 export(float) var friction = 2000
 
+export(float) var max_knockback_speed = 1000
+
 var velocity = Vector2.ZERO
 var target_direction = null setget set_target_direction
 var target_velocity = null
@@ -24,9 +26,9 @@ func _physics_process(delta):
 		
 	velocity = velocity.move_toward(target_velocity, delta * (acceleration if target_velocity != Vector2.ZERO else friction))
 			
-	parent.move_and_slide(velocity, Vector2.ZERO)
+	velocity = parent.move_and_slide(velocity, Vector2.ZERO)
 
 func knockback_from(other_position, strength = 100):
 	var knocbkack_direction = (parent.position - other_position).normalized()
-	velocity = (velocity + knocbkack_direction * strength).clamped(max_speed)
+	velocity = (velocity + knocbkack_direction * strength).clamped(max_knockback_speed)
 	

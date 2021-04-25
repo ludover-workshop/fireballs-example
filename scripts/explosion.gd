@@ -3,10 +3,10 @@ extends Node2D
 onready var shape = $Area2D/CollisionShape2D
 
 export(float) var expansionSpeed = 1000
-export(float) var time_to_live = 0.6
+export(float) var time_to_live = 0.4
 
 export(float) var damage = 50
-export(float) var knockback_strength = 2000
+export(float) var knockback_strength = 880
 
 var owner_mage
 
@@ -14,6 +14,8 @@ func _ready():
 	var circle = CircleShape2D.new()
 	circle.radius = 50
 	shape.shape = circle
+	
+	CameraShaker.shake_camera(get_tree(), 20)
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
