@@ -31,6 +31,7 @@ onready var damageable = $Damageable
 
 func receive_damage_from(damager):
 	damageable.receive_damage_from(damager)
+	hurtAnimationPlayer.stop(true)
 	hurtAnimationPlayer.play("Hurt")
 	
 func _process(delta):

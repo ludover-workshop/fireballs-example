@@ -20,7 +20,7 @@ func _physics_process(delta):
 	else:
 		offset = Vector2.ZERO
 
-func shake(strength = 20, duration = 1, frequency = 20):
+func shake(strength = 15, duration = 0.7, frequency = 20):
 	phase = Vector2(rand_range(0, TAU), rand_range(0, TAU))
 	self.strength = strength
 	self.duration = duration

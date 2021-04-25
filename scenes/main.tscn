@@ -1,15 +1,32 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scenes/mage.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scripts/main.gd" type="Script" id=2]
 [ext_resource path="res://assets/background_tile.png" type="Texture" id=3]
 [ext_resource path="res://scenes/weird_obstacle.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scripts/CameraShaker.gd" type="Script" id=5]
+[ext_resource path="res://assets/blood_feedback.png" type="Texture" id=6]
+[ext_resource path="res://scripts/MageDamageFeedback.gd" type="Script" id=7]
 
 [sub_resource type="Curve2D" id=1]
 bake_interval = 10.0
 _data = {
 "points": PoolVector2Array( 131.54, -73.3122, -131.54, 73.3122, -56, -50, -185.461, -105.576, 185.461, 105.576, -80, 1166, -163.502, 133.342, 163.502, -133.342, 1992, 1182, 298.431, 188.901, -298.431, -188.901, 1984, -66, 131.875, -141.897, -131.875, 141.897, -56, -50 )
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "ShowFeedback"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 8.28211 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
 [node name="Main" type="Node2D"]
@@ -50,4 +67,28 @@ anchor_mode = 0
 current = true
 script = ExtResource( 5 )
 
+[node name="Interface" type="Control" parent="."]
+margin_right = 1916.0
+margin_bottom = 1076.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MageDamageFeedback" type="TextureRect" parent="Interface"]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = -40.0
+margin_top = -56.0
+margin_right = 1961.0
+margin_bottom = 1127.0
+texture = ExtResource( 6 )
+expand = true
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Interface/MageDamageFeedback"]
+anims/ShowFeedback = SubResource( 2 )
+
+[connection signal="mage_damaged" from="Mage" to="Interface/MageDamageFeedback" method="_on_Mage_mage_damaged"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_SpawnTimer_timeout"]

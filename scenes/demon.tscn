@@ -22,8 +22,8 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"points": PoolRealArray( 1, -0.0377942, -0.197337, 0.0377942, 0.197337, 1, -0.25, 0, 0, -0.0211799, 0.761437, -0.0637329, 0.00292546, 0.0637329, -0.00292546, 1.08032, -0.0519061, -0.00585103, 0.0519061, 0.00585103, 1.00718, -0.0416065, -0.00292552, 0.0416065, 0.00292552 ),
-"times": PoolRealArray( 0, 0.001, 0.15, 0.3, 0.4 )
+"points": PoolRealArray( 1, -0.0377942, -0.197337, 0.0377942, 0.197337, 1, -0.25, 0, 0, -0.0211799, 0.890159, -0.0637329, 0.00292546, 0.0637329, -0.00292546, 1.07447, -0.0519061, -0.00585103, 0.0519061, 0.00585103, 1.00718, -0.0416065, -0.00292552, 0.0416065, 0.00292552 ),
+"times": PoolRealArray( 0, 0.001, 0.1, 0.25, 0.4 )
 }
 tracks/1/type = "bezier"
 tracks/1/path = NodePath("demonSprite:scale:y")
@@ -81,6 +81,7 @@ shape = SubResource( 1 )
 
 [node name="demonSprite" type="Sprite" parent="."]
 material = ExtResource( 5 )
+scale = Vector2( 1.06053, 1 )
 texture = ExtResource( 1 )
 flip_v = true
 

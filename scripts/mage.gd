@@ -12,6 +12,8 @@ var remaining_meteor_cooldown = 0
 
 var kill_count = 0
 
+signal mage_damaged
+
 onready var targetVelocityBehaviour = $TargetVelocityBehaviour
 onready var mage_sprite = $mage
 onready var fireballs_parent = get_fireballs_parent()
@@ -73,4 +75,4 @@ onready var damageable = $Damageable
 
 func receive_damage_from(damager):
 	damageable.receive_damage_from(damager)
-	CameraShaker.shake_camera(get_tree(), 15, 0.5)
+	emit_signal("mage_damaged")
