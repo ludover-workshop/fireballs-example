@@ -67,14 +67,16 @@ anchor_mode = 0
 current = true
 script = ExtResource( 5 )
 
-[node name="Interface" type="Control" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Interface" type="Control" parent="CanvasLayer"]
 margin_right = 1916.0
 margin_bottom = 1076.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="MageDamageFeedback" type="TextureRect" parent="Interface"]
+[node name="MageDamageFeedback" type="TextureRect" parent="CanvasLayer/Interface"]
 modulate = Color( 1, 1, 1, 0 )
 margin_left = -40.0
 margin_top = -56.0
@@ -87,8 +89,8 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Interface/MageDamageFeedback"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Interface/MageDamageFeedback"]
 anims/ShowFeedback = SubResource( 2 )
 
-[connection signal="mage_damaged" from="Mage" to="Interface/MageDamageFeedback" method="_on_Mage_mage_damaged"]
+[connection signal="mage_damaged" from="Mage" to="CanvasLayer/Interface/MageDamageFeedback" method="_on_Mage_mage_damaged"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_SpawnTimer_timeout"]

@@ -13,4 +13,10 @@ func _on_Projectile_hit(body):
 	var explosion = ExplosionScene.instance()
 	explosion.position = global_position
 	explosion.owner_mage = owner_mage
-	get_tree().get_current_scene().add_child(explosion)
+	get_parent().add_child(explosion)
+
+
+func destroy():
+	$Particles2D.emitting = false
+	yield(get_tree().create_timer($Particles2D.lifetime), "timeout")
+	queue_free()

@@ -1152,6 +1152,61 @@
        fx="107.17411"
        fy="261.24014"
        r="38.291733" />
+    <filter
+       style="color-interpolation-filters:sRGB;"
+       inkscape:label="Roughen"
+       id="filter1135">
+      <feTurbulence
+         type="turbulence"
+         numOctaves="5"
+         seed="1"
+         baseFrequency="0.02 0.03"
+         result="turbulence"
+         id="feTurbulence1131" />
+      <feDisplacementMap
+         in="SourceGraphic"
+         in2="turbulence"
+         scale="16.479263305664062"
+         yChannelSelector="G"
+         xChannelSelector="R"
+         id="feDisplacementMap1133" />
+    </filter>
+    <filter
+       y="-0.2"
+       height="1.4"
+       inkscape:label="Rough and Dilate"
+       inkscape:menu="Distort"
+       inkscape:menu-tooltip="Create a turbulent contour around"
+       style="color-interpolation-filters:sRGB;"
+       id="filter1147">
+      <feMorphology
+         radius="7.5"
+         operator="dilate"
+         result="result8"
+         in="SourceGraphic"
+         id="feMorphology1137" />
+      <feComposite
+         in2="result8"
+         result="result10"
+         in="SourceGraphic"
+         operator="arithmetic"
+         k1="0.5"
+         k3="0.5"
+         id="feComposite1139" />
+      <feTurbulence
+         result="result11"
+         type="fractalNoise"
+         numOctaves="3"
+         baseFrequency="0.07"
+         id="feTurbulence1141" />
+      <feDisplacementMap
+         result="result12"
+         in2="result11"
+         in="result10"
+         xChannelSelector="R"
+         scale="36.057968139648438"
+         id="feDisplacementMap1143" />
+    </filter>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -1160,9 +1215,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.4"
-     inkscape:cx="1309.7126"
-     inkscape:cy="172.67012"
+     inkscape:zoom="0.98994949"
+     inkscape:cx="1637.9853"
+     inkscape:cy="802.16973"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      inkscape:document-rotation="0"
@@ -1605,5 +1660,14 @@
          transform="matrix(1.4246292,0,0,1.4246292,232.14843,-435.94781)"
          r="37.291733" />
     </g>
+    <circle
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke-width:0.264583px;stop-color:#000000;filter:url(#filter1147)"
+       id="path1082"
+       cx="603.31128"
+       cy="210.90857"
+       r="49.990494"
+       inkscape:export-filename="/home/pablitar/Develop/ludover/Examples/Fireballs/assets/ExplosionParticle.png"
+       inkscape:export-xdpi="11.613636"
+       inkscape:export-ydpi="11.613636" />
   </g>
 </svg>

@@ -13,3 +13,8 @@ func init(owner_mage, global_position: Vector2, rotation: float):
 func _on_Projectile_hit(body):
 	if body.has_method("receive_damage_from"):
 		body.receive_damage_from(self)
+
+func destroy():
+	$Particles2D.emitting = false
+	yield(get_tree().create_timer($Particles2D.lifetime), "timeout")
+	queue_free()
