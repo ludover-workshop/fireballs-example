@@ -1,16 +1,17 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://assets/weird_obstacle.png" type="Texture" id=1]
+[ext_resource path="res://assets/dead-tree.png" type="Texture" id=1]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 96.0
+radius = 80.0
 
 [node name="StaticBody2D" type="StaticBody2D"]
 collision_layer = 16
 collision_mask = 7
 
 [node name="weird_obstacle" type="Sprite" parent="."]
-position = Vector2( 0, -8 )
+position = Vector2( 16, 16 )
+scale = Vector2( 1.5, 1.5 )
 z_index = 1
 texture = ExtResource( 1 )
 

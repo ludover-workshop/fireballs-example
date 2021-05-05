@@ -101,6 +101,7 @@ shape = SubResource( 1 )
 
 [node name="Smoke" type="Particles2D" parent="."]
 modulate = Color( 1, 1, 1, 0.168627 )
+z_index = 1
 emitting = false
 amount = 100
 one_shot = true
@@ -110,6 +111,7 @@ texture = ExtResource( 2 )
 
 [node name="Fire" type="Particles2D" parent="."]
 modulate = Color( 1, 1, 1, 0.427451 )
+z_index = 1
 emitting = false
 amount = 200
 lifetime = 0.5
