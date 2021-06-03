@@ -14,20 +14,20 @@
 [ext_resource path="res://scenes/projectile.tscn" type="PackedScene" id=12]
 [ext_resource path="res://assets/FireParticle.png" type="Texture" id=13]
 
-[sub_resource type="Gradient" id=12]
+[sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0, 0.00711744, 0.854093, 1 )
 colors = PoolColorArray( 0, 0, 0, 1, 0.898039, 1, 0, 0.54902, 1, 0, 0, 0.54902, 1, 0, 0, 0 )
 
-[sub_resource type="GradientTexture" id=9]
-gradient = SubResource( 12 )
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
 
-[sub_resource type="Curve" id=13]
+[sub_resource type="Curve" id=3]
 _data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.996644, 0.384615 ), -1.39775, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=11]
-curve = SubResource( 13 )
+[sub_resource type="CurveTexture" id=4]
+curve = SubResource( 3 )
 
-[sub_resource type="ParticlesMaterial" id=14]
+[sub_resource type="ParticlesMaterial" id=5]
 lifetime_randomness = 0.26
 emission_shape = 1
 emission_sphere_radius = 60.0
@@ -43,12 +43,12 @@ orbit_velocity_random = 0.0
 angle = 360.0
 angle_random = 1.0
 scale_random = 0.31
-scale_curve = SubResource( 11 )
-color_ramp = SubResource( 9 )
+scale_curve = SubResource( 4 )
+color_ramp = SubResource( 2 )
 hue_variation = -0.09
 hue_variation_random = 1.0
 
-[sub_resource type="SpriteFrames" id=15]
+[sub_resource type="SpriteFrames" id=6]
 animations = [ {
 "frames": [ ExtResource( 7 ), ExtResource( 8 ), ExtResource( 2 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 1 ), ExtResource( 9 ), ExtResource( 11 ), ExtResource( 10 ) ],
 "loop": true,
@@ -56,7 +56,7 @@ animations = [ {
 "speed": 10.0
 } ]
 
-[sub_resource type="CircleShape2D" id=16]
+[sub_resource type="CircleShape2D" id=7]
 radius = 60.5083
 
 [node name="Meteor" type="Node2D"]
@@ -65,9 +65,10 @@ script = ExtResource( 3 )
 [node name="Particles2D" type="Particles2D" parent="."]
 amount = 60
 lifetime = 2.0
+visibility_rect = Rect2( -600, -600, 1200, 1200 )
 local_coords = false
 draw_order = 1
-process_material = SubResource( 14 )
+process_material = SubResource( 5 )
 texture = ExtResource( 13 )
 
 [node name="Projectile" parent="." instance=ExtResource( 12 )]
@@ -77,12 +78,12 @@ timeToLive = 4.0
 [node name="AnimatedSprite" parent="Projectile" index="0"]
 position = Vector2( -49.5, -6 )
 scale = Vector2( 0.7, 0.7 )
-frames = SubResource( 15 )
+frames = SubResource( 6 )
 frame = 6
 
 [node name="CollisionShape2D" parent="Projectile/Area2D" index="0"]
 position = Vector2( -1, 0 )
-shape = SubResource( 16 )
+shape = SubResource( 7 )
 
 [connection signal="hit" from="Projectile" to="." method="_on_Projectile_hit"]
 

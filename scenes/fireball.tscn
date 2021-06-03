@@ -14,18 +14,18 @@
 [ext_resource path="res://scenes/projectile.tscn" type="PackedScene" id=12]
 [ext_resource path="res://assets/FireParticle.png" type="Texture" id=13]
 
-[sub_resource type="Gradient" id=8]
+[sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0, 0.00711744, 0.854093, 1 )
 colors = PoolColorArray( 0, 0, 0, 1, 0.898039, 1, 0, 0.54902, 1, 0, 0, 0.54902, 1, 0, 0, 0 )
 
-[sub_resource type="GradientTexture" id=11]
-gradient = SubResource( 8 )
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
 
-[sub_resource type="Curve" id=10]
+[sub_resource type="Curve" id=3]
 _data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.996644, 0.384615 ), -1.39775, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=12]
-curve = SubResource( 10 )
+[sub_resource type="CurveTexture" id=4]
+curve = SubResource( 3 )
 
 [sub_resource type="ParticlesMaterial" id=5]
 lifetime_randomness = 0.26
@@ -43,8 +43,8 @@ orbit_velocity_random = 0.0
 angle = 360.0
 angle_random = 1.0
 scale_random = 0.31
-scale_curve = SubResource( 12 )
-color_ramp = SubResource( 11 )
+scale_curve = SubResource( 4 )
+color_ramp = SubResource( 2 )
 hue_variation = -0.09
 hue_variation_random = 1.0
 
@@ -66,6 +66,7 @@ script = ExtResource( 11 )
 [node name="Particles2D" type="Particles2D" parent="."]
 amount = 40
 lifetime = 2.0
+visibility_rect = Rect2( -600, -600, 1200, 1200 )
 local_coords = false
 draw_order = 1
 process_material = SubResource( 5 )
@@ -75,7 +76,7 @@ texture = ExtResource( 13 )
 
 [node name="AnimatedSprite" parent="Projectile" index="0"]
 frames = SubResource( 6 )
-frame = 3
+frame = 6
 
 [node name="CollisionShape2D" parent="Projectile/Area2D" index="0"]
 visible = false

@@ -5,6 +5,10 @@ const fireball_scene := preload("res://scenes/fireball.tscn")
 const meteor_scene := preload("res://scenes/meteor.tscn")
 onready var fireball_spawn_point = $FireballSpawnPoint
 
+export(NodePath) var camera_path = @"../Camera"
+
+onready var camera: Camera2D = get_node(camera_path)
+
 export(float) var fire_cooldown = 0.2
 export(float) var meteor_cooldown = 3
 var remaining_fire_cooldown = 0
@@ -49,7 +53,7 @@ func check_fireball_trigger(delta):
 	check_projectile_trigger(delta, "ui_fire", "remaining_fire_cooldown", fire_cooldown, fireball_scene)
 	
 func update_target(delta):
-	rotation = get_viewport().get_mouse_position().angle_to_point(position)
+	rotation = get_global_mouse_position().angle_to_point(position)
 	
 func move_using_keyboard(delta):
 	var input_vector = Vector2(0, 0)
