@@ -23,6 +23,13 @@ func start_move_to(step: CartStep, index: int):
 	yield(tween, "tween_all_completed")
 	if(current_step_index == index):
 		start_step(index + 1)
+		
+func start_wait_for(step: CartStep, index: int):
+	var node_to_wait = get_parent().get_node(step.node_to_wait_for)
+	node_to_wait.start_cart_blocking()
+	yield(node_to_wait, "release_cart")
+	if(current_step_index == index):
+		start_step(index + 1)
 
 func start_step(index: int):
 	if get_steps().size() > index:
@@ -34,6 +41,9 @@ func start_step(index: int):
 				start_wait(step, index)
 			CartStep.Action.MOVE_TO:
 				start_move_to(step, index)
+			CartStep.Action.WAIT_FOR:
+				start_wait_for(step, index)
+				
 			
 
 
