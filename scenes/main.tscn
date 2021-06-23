@@ -603,6 +603,8 @@ node_to_wait_for = NodePath("")
 [node name="Main" type="Node2D"]
 script = ExtResource( 2 )
 
+[node name="LowPassTween" type="Tween" parent="."]
+
 [node name="background" type="Sprite" parent="."]
 texture = ExtResource( 3 )
 region_enabled = true
@@ -705,6 +707,7 @@ autoplay = true
 bus = "Music"
 
 [connection signal="mage_damaged" from="Mage" to="CanvasLayer/Interface/MageDamageFeedback" method="_on_Mage_mage_damaged"]
+[connection signal="mage_damaged" from="Mage" to="." method="_on_Mage_mage_damaged"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_SpawnTimer_timeout"]
 
 [editable path="removable_obstacle"]

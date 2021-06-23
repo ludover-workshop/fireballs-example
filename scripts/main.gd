@@ -28,3 +28,15 @@ func _on_SpawnTimer_timeout():
 func killed(damager, demon):
 	if damager.get("owner_mage") == mage:
 		mage.killed(demon)
+
+onready var low_pass_effect: AudioEffectLowPassFilter = AudioServer.get_bus_effect(0, 0)
+
+func _on_Mage_mage_damaged():
+	AudioServer.set_bus_effect_enabled(0, 0, true)
+	var tween = $LowPassTween
+	tween.remove_all()
+	tween.interpolate_property(low_pass_effect, "cutoff_hz", 2000, 10000, 1, Tween.TRANS_QUAD, Tween.EASE_OUT)
+	tween.start()
+	yield(tween, "tween_all_completed")
+	
+	AudioServer.set_bus_effect_enabled(0, 0, false)
