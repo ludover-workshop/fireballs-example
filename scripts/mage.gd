@@ -34,23 +34,25 @@ func _process(delta):
 	check_fireball_trigger(delta)
 	check_meteor_trigger(delta)
 
-func check_projectile_trigger(delta, action: String, remainingCooldownRef: String, cooldown: float, instancer: PackedScene):
+func check_projectile_trigger(delta, action: String, remainingCooldownRef: String, cooldown: float, instancer: PackedScene, sound_method = null):
 	var currentCooldown = get(remainingCooldownRef)
 	if Input.is_action_pressed(action) && currentCooldown <= 0:
 		var projectile = instancer.instance()
 		projectile.init(self, fireball_spawn_point.global_position, self.rotation)
 		fireballs_parent.add_child(projectile)
 		
+		if(self.has_method(sound_method)):
+			self.call(sound_method)
+		
 		set(remainingCooldownRef, cooldown)
 	else: 
 		set(remainingCooldownRef, max(currentCooldown - delta, 0))
 
 func check_meteor_trigger(delta):
-	check_projectile_trigger(delta, "ui_fire_meteor", "remaining_meteor_cooldown", meteor_cooldown, meteor_scene)
+	check_projectile_trigger(delta, "ui_fire_meteor", "remaining_meteor_cooldown", meteor_cooldown, meteor_scene, "play_meteor_sound")
 		
-	
 func check_fireball_trigger(delta):
-	check_projectile_trigger(delta, "ui_fire", "remaining_fire_cooldown", fire_cooldown, fireball_scene)
+	check_projectile_trigger(delta, "ui_fire", "remaining_fire_cooldown", fire_cooldown, fireball_scene, "play_fireball_sound")
 	
 func update_target(delta):
 	rotation = get_global_mouse_position().angle_to_point(position)
@@ -78,5 +80,13 @@ func killed(body):
 onready var damageable = $Damageable
 
 func receive_damage_from(damager):
+	$Sounds/Hurt.play_random()
 	damageable.receive_damage_from(damager)
 	emit_signal("mage_damaged")
+
+
+func play_meteor_sound():
+	$Sounds/MeteorFire.play()
+	
+func play_fireball_sound():
+	$Sounds/FireballFire.play_with_random_pitch()

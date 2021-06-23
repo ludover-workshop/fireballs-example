@@ -10,8 +10,13 @@ export(float) var knockback_strength = 700
 export(float) var attack_cooldown = 0.7
 var remaining_attack_cooldown = 0
 
+const TIME_BETWEEN_GROWLS = 2.5
+
 var target: Node2D
 var attacking: bool = false
+
+var growling: bool = false
+var can_growl:bool = true
 
 onready var targetVelocityBehaviour = $TargetVelocityBehaviour
 onready var animationPlayer = $AnimationPlayer
@@ -33,6 +38,7 @@ func receive_damage_from(damager):
 	damageable.receive_damage_from(damager)
 	hurtAnimationPlayer.stop(true)
 	hurtAnimationPlayer.play("Hurt")
+	$Sounds/HurtSounds.play_random()
 	
 func _process(delta):
 	if is_instance_valid(target):
@@ -46,6 +52,16 @@ func _process(delta):
 	else:
 		remaining_attack_cooldown = max(remaining_attack_cooldown - delta, 0)
 		
+	if growling:
+		growl()
+
+func growl():
+	if can_growl:
+		can_growl = false
+		$Sounds/GrowlSounds.play_random()
+		yield(get_tree().create_timer(TIME_BETWEEN_GROWLS + rand_range(-1, 1)), "timeout")
+		can_growl = true
+	
 func turn_towards_target(delta):
 	var target_angle = angle_to_target()
 	
@@ -77,3 +93,12 @@ onready var attack_area = $AttackArea
 func _on_AttackArea_body_exited(_body):
 	if attack_area.get_overlapping_bodies().empty():
 		attacking = false 
+
+
+func _on_PlayGrowlArea_body_entered(body):
+	growling = true
+
+
+func _on_PlayGrowlArea_body_exited(body):
+	if $PlayGrowlArea.get_overlapping_bodies().empty():
+		growling = false 

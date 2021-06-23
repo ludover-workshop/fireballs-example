@@ -43,5 +43,5 @@ func _process(delta):
 
 
 func _on_Area2D_body_entered(body):
-	if body.has_method("receive_damage_from"):
+	if is_instance_valid(body) && body.has_method("receive_damage_from"):
 		body.receive_damage_from(self)

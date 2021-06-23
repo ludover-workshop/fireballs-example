@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Serge Quadrado - Panic.mp3-98f39a7c61fd4eb5a3757774ea9090ae.mp3str"
+
+[deps]
+
+source_file="res://assets/Serge Quadrado - Panic.mp3"
+dest_files=[ "res://.import/Serge Quadrado - Panic.mp3-98f39a7c61fd4eb5a3757774ea9090ae.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

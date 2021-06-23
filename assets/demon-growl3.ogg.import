@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/demon-growl3.ogg-911973a3aa2e65aba31f42ada32255bf.oggstr"
+
+[deps]
+
+source_file="res://assets/demon-growl3.ogg"
+dest_files=[ "res://.import/demon-growl3.ogg-911973a3aa2e65aba31f42ada32255bf.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

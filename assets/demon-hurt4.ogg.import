@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/demon-hurt4.ogg-17d1cb951e1e2f8ec5e73544765be350.oggstr"
+
+[deps]
+
+source_file="res://assets/demon-hurt4.ogg"
+dest_files=[ "res://.import/demon-hurt4.ogg-17d1cb951e1e2f8ec5e73544765be350.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

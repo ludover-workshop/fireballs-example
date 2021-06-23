@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://assets/demon.png" type="Texture" id=1]
 [ext_resource path="res://scripts/demon.gd" type="Script" id=2]
@@ -6,6 +6,15 @@
 [ext_resource path="res://assets/demon_shadow.png" type="Texture" id=4]
 [ext_resource path="res://shaders/blinking_material.tres" type="Material" id=5]
 [ext_resource path="res://scenes/Damageable.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scripts/RandomSounds.gd" type="Script" id=7]
+[ext_resource path="res://assets/demon-hurt2.ogg" type="AudioStream" id=8]
+[ext_resource path="res://assets/demon-hurt3.ogg" type="AudioStream" id=9]
+[ext_resource path="res://assets/demon-hurt4.ogg" type="AudioStream" id=10]
+[ext_resource path="res://assets/demon-hurt1.ogg" type="AudioStream" id=11]
+[ext_resource path="res://assets/demon-growl1.ogg" type="AudioStream" id=12]
+[ext_resource path="res://assets/demon-growl2.ogg" type="AudioStream" id=13]
+[ext_resource path="res://assets/demon-growl3.ogg" type="AudioStream" id=14]
+[ext_resource path="res://assets/demon-growl4.ogg" type="AudioStream" id=15]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 108.903
@@ -87,7 +96,7 @@ flip_v = true
 
 [node name="demonShadow" type="Sprite" parent="demonSprite"]
 show_behind_parent = true
-position = Vector2( 0, 10 )
+position = Vector2( -1.6801, 8.2182 )
 texture = ExtResource( 4 )
 flip_v = true
 
@@ -115,5 +124,29 @@ shape = SubResource( 4 )
 knockback_handler_path = NodePath("../TargetVelocityBehaviour")
 blinking_sprite_path = NodePath("../demonSprite")
 
+[node name="Sounds" type="Node2D" parent="."]
+
+[node name="HurtSounds" type="AudioStreamPlayer2D" parent="Sounds"]
+stream = ExtResource( 11 )
+volume_db = -3.104
+attenuation = 2.14355
+bus = "Sound"
+script = ExtResource( 7 )
+streams = [ ExtResource( 11 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ) ]
+
+[node name="GrowlSounds" type="AudioStreamPlayer2D" parent="Sounds"]
+attenuation = 2.07053
+bus = "Sound"
+script = ExtResource( 7 )
+streams = [ ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ) ]
+
+[node name="PlayGrowlArea" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="PlayGrowlArea"]
+polygon = PoolVector2Array( 1.45016, -0.334625, 117.081, -336, 805.081, -896, 1188.54, -514.902, 1221.08, 0, 1189.08, 512, 805.081, 896, 117.081, 336 )
+
 [connection signal="body_entered" from="AttackArea" to="." method="_on_AttackArea_body_entered"]
 [connection signal="body_exited" from="AttackArea" to="." method="_on_AttackArea_body_exited"]
+[connection signal="body_entered" from="PlayGrowlArea" to="." method="_on_PlayGrowlArea_body_entered"]
+[connection signal="body_exited" from="PlayGrowlArea" to="." method="_on_PlayGrowlArea_body_exited"]
